@@ -1,0 +1,525 @@
+/* Goal Planner Calculator CSS */
+/* Spin Game Styles */
+.spin-game-container {
+    background-color: var(--card-color);
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    padding: 20px;
+    margin-top: 30px;
+    text-align: center;
+}
+
+.spin-game-container h3 {
+    color: var(--primary-color);
+    margin-bottom: 10px;
+    font-size: 1.5rem;
+}
+
+.wheel-container {
+    position: relative;
+    width: 250px;
+    height: 250px;
+    margin: 20px auto;
+}
+
+.wheel {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    position: relative;
+    overflow: hidden;
+    border: 5px solid #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    transition: transform 4s;
+}
+
+.wheel-section {
+    position: absolute;
+    width: 50%;
+    height: 50%;
+    transform-origin: bottom right;
+    clip-path: polygon(0 0, 100% 0, 0 100%);
+}
+
+.section-emoji {
+    position: absolute;
+    top: 20px;
+    left: 30px;
+    font-size: 1.5rem;
+    transform-origin: center;
+}
+
+.wheel-pointer {
+    position: absolute;
+    top: -20px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 2rem;
+    color: var(--primary-color);
+    z-index: 10;
+}
+
+.spin-btn {
+    background: linear-gradient(to right, var(--student-gradient-start), var(--student-gradient-end));
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 30px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition);
+    margin-top: 10px;
+}
+
+.spin-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(108, 99, 255, 0.3);
+}
+
+.spin-btn:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+}
+
+.spin-result {
+    margin-top: 20px;
+    min-height: 80px;
+    font-weight: 500;
+}
+
+.result-emoji {
+    font-size: 2rem;
+    margin-bottom: 10px;
+    animation: bounce 1s ease infinite;
+}
+
+@keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+:root {
+    --primary-color: #6c63ff;
+    --secondary-color: #ff6584;
+    --accent-color: #43cea2;
+    --background-color: #f8f9fa;
+    --card-color: #ffffff;
+    --text-color: #333333;
+    --text-light: #777777;
+    --success-color: #28a745;
+    --danger-color: #dc3545;
+    --warning-color: #ffc107;
+    --border-radius: 12px;
+    --box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    --transition: all 0.3s ease;
+    
+    /* Student-friendly theme colors */
+    --student-primary: #6c63ff;
+    --student-secondary: #ff6584;
+    --student-accent: #43cea2;
+    --student-highlight: #ffd166;
+    --student-gradient-start: #6c63ff;
+    --student-gradient-end: #ff6584;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    line-height: 1.6;
+    min-height: 100vh;
+}
+
+.app-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.container {
+    width: 100%;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 10px;
+    color: var(--primary-color);
+    position: relative;
+}
+
+h1::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60%;
+    height: 3px;
+    background: linear-gradient(to right, var(--student-gradient-start), var(--student-gradient-end));
+    border-radius: 3px;
+}
+
+h1 span {
+    font-weight: 400;
+    position: relative;
+}
+
+h1 span::before {
+    content: '📚';
+    position: absolute;
+    top: -15px;
+    right: -25px;
+    font-size: 1.2rem;
+    transform: rotate(15deg);
+}
+
+.tagline {
+    font-size: 1.1rem;
+    color: var(--text-light);
+    margin-top: 10px;
+    position: relative;
+    display: inline-block;
+}
+
+.tagline::after {
+    content: '✨';
+    position: absolute;
+    right: -25px;
+    top: 0;
+}
+
+.calculator-card {
+    background-color: var(--card-color);
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    overflow: hidden;
+    margin-bottom: 30px;
+    display: flex;
+    flex-direction: column;
+    border: 2px solid transparent;
+    background-image: linear-gradient(white, white), 
+                      linear-gradient(to right, var(--student-primary), var(--student-secondary));
+    background-origin: border-box;
+    background-clip: content-box, border-box;
+    position: relative;
+}
+
+.calculator-card::before {
+    content: '📝';
+    position: absolute;
+    top: -15px;
+    left: 20px;
+    font-size: 24px;
+    background: white;
+    border-radius: 50%;
+    padding: 5px;
+    box-shadow: var(--box-shadow);
+}
+
+@media (min-width: 768px) {
+    .calculator-card {
+        flex-direction: row;
+    }
+}
+
+.input-section {
+    padding: 30px;
+    flex: 1;
+    position: relative;
+}
+
+.form-group {
+    margin-bottom: 25px;
+    position: relative;
+    transition: var(--transition);
+}
+
+.form-group:hover {
+    transform: translateY(-2px);
+}
+
+label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+    color: var(--text-color);
+    position: relative;
+    padding-left: 20px;
+}
+
+label::before {
+    content: '✏️';
+    position: absolute;
+    left: 0;
+    font-size: 14px;
+}
+
+input, select {
+    width: 100%;
+    border: 2px solid #e1e1e1;
+    border-radius: var(--border-radius);
+    padding: 12px 15px;
+    font-size: 1rem;
+    transition: var(--transition);
+    background-color: #f9f9f9;
+}
+
+input:focus, select:focus {
+    border-color: var(--student-primary);
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(108, 99, 255, 0.2);
+}
+
+.savings-input {
+    display: flex;
+    gap: 10px;
+    position: relative;
+}
+
+.savings-input::after {
+    content: '💰';
+    position: absolute;
+    right: -25px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.savings-input input {
+    flex: 2;
+}
+
+.savings-input select {
+    flex: 1;
+}
+
+.btn-calculate {
+    background: linear-gradient(to right, var(--student-gradient-start), var(--student-gradient-end));
+    color: white;
+    border: none;
+    border-radius: var(--border-radius);
+    padding: 14px 20px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+    margin-top: 10px;
+}
+
+.btn-calculate:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(138, 43, 226, 0.2);
+}
+
+.result-section {
+    background: linear-gradient(135deg, #f9f9ff 0%, #f0f0ff 100%);
+    padding: 30px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    border-top: 1px solid #eee;
+}
+
+.result-section::before {
+    content: '';
+    position: absolute;
+    top: -50px;
+    right: -50px;
+    width: 100px;
+    height: 100px;
+    background: var(--student-highlight);
+    opacity: 0.2;
+    border-radius: 50%;
+}
+
+.result-section::after {
+    content: '';
+    position: absolute;
+    bottom: -30px;
+    left: -30px;
+    width: 80px;
+    height: 80px;
+    background: var(--student-accent);
+    opacity: 0.15;
+    border-radius: 50%;
+}
+
+@media (min-width: 768px) {
+    .result-section {
+        border-top: none;
+        border-left: 1px solid #eee;
+    }
+}
+
+.result-header {
+    margin-bottom: 25px;
+    position: relative;
+}
+
+.result-header::after {
+    content: '🎯';
+    position: absolute;
+    top: -20px;
+    right: -30px;
+    font-size: 24px;
+    transform: rotate(15deg);
+}
+
+.result-header h2 {
+    font-size: 1.8rem;
+    font-weight: 600;
+    color: var(--primary-color);
+    position: relative;
+    display: inline-block;
+}
+
+.result-header h2::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: linear-gradient(to right, var(--student-gradient-start), var(--student-gradient-end));
+    border-radius: 3px;
+}
+
+.time-result {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--primary-color);
+    padding: 8px 15px;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+    gap: 5px;
+}
+
+.time-result #time-value {
+    font-size: 1.2rem;
+}
+
+.progress-container {
+    margin-bottom: 20px;
+}
+
+.progress-bar {
+    height: 12px;
+    background-color: #E0E0E0;
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 8px;
+}
+
+.progress-fill {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(to right, var(--accent-color), var(--secondary-color));
+    border-radius: 10px;
+    transition: width 1s ease;
+}
+
+.progress-text {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.9rem;
+    color: var(--light-text);
+}
+
+.motivation-box {
+    background-color: rgba(138, 43, 226, 0.05);
+    border-left: 4px solid var(--primary-color);
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+
+.motivation-box p {
+    font-weight: 500;
+    color: var(--primary-color);
+}
+
+.summary {
+    background-color: #F5F7FF;
+    border-radius: 10px;
+    padding: 15px;
+}
+
+.summary-item {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.summary-item:last-child {
+    margin-bottom: 0;
+}
+
+.summary-label {
+    color: var(--light-text);
+}
+
+.summary-value {
+    font-weight: 600;
+    color: var(--text-color);
+}
+
+footer {
+    text-align: center;
+    margin-top: 20px;
+    color: var(--light-text);
+    font-size: 0.9rem;
+}
+
+/* Animation for progress bar */
+@keyframes fillProgress {
+    from { width: 0%; }
+    to { width: var(--target-width); }
+}
+
+/* Responsive adjustments */
+@media (max-width: 767px) {
+    h1 {
+        font-size: 2rem;
+    }
+    
+    .calculator-card {
+        margin-left: -10px;
+        margin-right: -10px;
+        border-radius: 0;
+    }
+    
+    .input-section, .result-section {
+        padding: 20px;
+    }
+}

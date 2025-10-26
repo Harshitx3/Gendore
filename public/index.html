@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gendore 💸</title>
+    <link rel="stylesheet" href="css/common.css">
+    <link rel="stylesheet" href="css/home.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* User info styles */
+        .user-info-container {
+            display: flex;
+            align-items: center;
+            margin-left: auto;
+            padding: 0 20px;
+        }
+        
+        .user-avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background-color: #6c5ce7;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 10px;
+            font-weight: 500;
+        }
+        
+        #user-info {
+            font-weight: 500;
+            color: #333;
+        }
+        
+        #logout-btn {
+            margin-left: 15px;
+            background-color: transparent;
+            border: 1px solid #6c5ce7;
+            color: #6c5ce7;
+            padding: 5px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.2s;
+        }
+        
+        #logout-btn:hover {
+            background-color: #6c5ce7;
+            color: white;
+        }
+        
+        .form-group {
+            margin-bottom: 15px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 500;
+            color: #333;
+        }
+        
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+        
+        .auth-btn {
+            width: 100%;
+            padding: 12px;
+            background-color: #6c5ce7;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .auth-btn:hover {
+            background-color: #5649c0;
+        }
+        
+        .error-message {
+            color: #e74c3c;
+            font-size: 12px;
+            margin-top: 5px;
+            display: none;
+        }
+        
+        .user-info {
+            display: flex;
+            align-items: center;
+            margin-left: auto;
+        }
+        
+        .user-name {
+            margin-right: 10px;
+            font-weight: 500;
+        }
+        
+        .logout-btn {
+            background: none;
+            border: none;
+            color: #6c5ce7;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        
+        .app-content {
+            display: block; /* Always show content */
+        }
+        
+        .app-content.active {
+            display: block;
+        }
+
+        /* New styles for home page */
+        .welcome-section {
+            text-align: center;
+            padding: 40px 20px;
+        }
+
+        .welcome-section h2 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: #6c5ce7;
+        }
+
+        .welcome-section p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            color: #555;
+        }
+
+        .features {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .feature-card {
+            background-color: #fff;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            width: 280px;
+            text-align: center;
+            transition: transform 0.3s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .feature-card i {
+            font-size: 2.5rem;
+            color: #6c5ce7;
+            margin-bottom: 15px;
+        }
+
+        .feature-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        .feature-card p {
+            color: #666;
+            font-size: 0.95rem;
+        }
+
+        /* Login prompt styles */
+        .login-prompt {
+            text-align: center;
+            margin: 40px 0;
+            padding: 20px;
+            background-color: #f5f6fa;
+            border-radius: 10px;
+        }
+
+        .login-btn {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #6c5ce7;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: 500;
+            margin-top: 10px;
+            transition: background-color 0.3s;
+        }
+
+        .login-btn:hover {
+            background-color: #5649c0;
+        }
+
+        .login-nav {
+            margin-left: auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <header>
+            <div class="header-container">
+                <h1>Gendore 💸</h1>
+                <button id="mobile-toggle" class="mobile-toggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+            <nav id="main-nav">
+                <ul>
+                    <li><a href="index.html" class="nav-link active">Home</a></li>
+                    <li><a href="expense.html" class="nav-link">Expenses</a></li>
+                    <li><a href="debt.html" class="nav-link">Debt</a></li>
+                    <li><a href="goal-calculator.html" class="nav-link">Calculator</a></li>
+                    <li><a href="about.html" class="nav-link">About</a></li>
+                    <li><a href="feedback.html" class="nav-link">Feedback</a></li>
+                </ul>
+            </nav>
+            <div class="user-info-container">
+                <div class="user-avatar">U</div>
+                <span id="user-info">User</span>
+                <button id="logout-btn">Logout</button>
+            </div>
+        </header>
+
+        <main>
+            <!-- Home Content - Always Visible -->
+            <div id="home-content" class="app-content active">
+                <section class="welcome-section">
+                    <h2>Welcome to Gendore!</h2>
+                    <p>Take control of your finances with our easy-to-use tools.</p>
+                    
+                    <div class="features">
+                        <div class="feature-card">
+                            <i class="fas fa-chart-line"></i>
+                            <h3>Track Expenses</h3>
+                            <p>Monitor where your money goes with detailed expense tracking.</p>
+                        </div>
+                        <div class="feature-card">
+                            <i class="fas fa-calculator"></i>
+                            <h3>Calculator</h3>
+                            <p>Plan your savings and calculate your financial goals easily.</p>
+                        </div>
+                        <div class="feature-card">
+                            <i class="fas fa-hand-holding-usd"></i>
+                            <h3>Manage Debt</h3>
+                            <p>Keep track of loans and debts to stay on top of payments.</p>
+                        </div>
+                        <div class="feature-card">
+                            <i class="fas fa-comment"></i>
+                            <h3>Feedback Form</h3>
+                            <p>Share your thoughts and help us improve our services.</p>
+                        </div>
+                    </div>
+                </section>
+                
+                <div class="login-prompt" id="login-prompt">
+                    <p>To access all features, please log in or sign up.</p>
+                    <a href="login.html" class="login-btn">Login</a> or <a href="register.html" class="login-btn">Sign Up</a>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Include auth.js for authentication -->
+    <script src="js/auth.js"></script>
+    <script src="js/mobile-nav.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Update UI based on authentication status
+            updateUIForUser();
+        });
+    </script>
+</body>
+</html>

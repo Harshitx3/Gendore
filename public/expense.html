@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Expense Tracker - Gendore</title>
+    <link rel="stylesheet" href="css/common.css">
+    <link rel="stylesheet" href="css/expense.css">
+    <link rel="stylesheet" href="/css/expense-cards.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="app-container">
+        <header>
+            <div class="header-container">
+                <h1>Gendore 💸</h1>
+                <button id="mobile-toggle" class="mobile-toggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+            <nav id="main-nav">
+                <ul>
+                    <li><a href="index.html" class="nav-link">Home</a></li>
+                    <li><a href="expense.html" class="nav-link active">Expenses</a></li>
+                    <li><a href="debt.html" class="nav-link">Debt</a></li>
+                    <li><a href="goal-calculator.html" class="nav-link">Calculator</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <main>
+            <div class="expense-container">
+                <div class="expense-header">
+                    <h2>Expense Tracker</h2>
+                    <div class="expense-actions">
+                        <div class="filter-container">
+                            <select id="expense-filter" class="filter-select">
+                                <option value="all">All Expenses</option>
+                                <option value="today">Today Only</option>
+                                <option value="week">This Week</option>
+                                <option value="month">This Month</option>
+                            </select>
+                        </div>
+                        <button id="add-expense-btn" class="add-btn">+ Add New Expense</button>
+                    </div>
+                </div>
+                
+                <div class="expense-summary">
+                    <div class="summary-cards">
+                        <div class="summary-card">
+                            <h4>Today's Total</h4>
+                            <p id="todayTotal">₹0.00</p>
+                        </div>
+                        <div class="summary-card">
+                            <h4>This Week</h4>
+                            <p id="weekTotal">₹0.00</p>
+                        </div>
+                        <div class="summary-card">
+                            <h4>Monthly Total</h4>
+                            <p id="monthTotal">₹0.00</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div id="expense-list" class="expense-list">
+                    <!-- Expense items will be added here -->
+                    <div class="empty-state">
+                        <p>No expenses found</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Expense Modal -->
+            <div id="expense-modal" class="modal">
+                <div class="modal-content">
+                    <span class="close">&times;</span>
+                    <h3>Add New Expense</h3>
+                    <form id="expense-form">
+                        <div class="form-group">
+                            <label for="expense-amount">Amount (₹)</label>
+                            <input type="number" id="expense-amount" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="expense-description">Description</label>
+                            <input type="text" id="expense-description" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="expense-date">Date</label>
+                            <input type="date" id="expense-date" required>
+                        </div>
+                        <button type="submit" class="submit-btn" id="expense-submit-btn">Add</button>
+                    </form>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="js/auth.js"></script>
+    <script src="js/expense.js"></script>
+    <script src="js/mobile-nav.js"></script>
+</body>
+</html>

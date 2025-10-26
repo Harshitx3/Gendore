@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Debt Tracker - Gendore</title>
+    <link rel="stylesheet" href="css/common.css">
+    <link rel="stylesheet" href="css/debt.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="app-container">
+        <header>
+            <div class="header-container">
+                <h1>Gendore 💸</h1>
+                <button id="mobile-toggle" class="mobile-toggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+            <nav id="main-nav">
+                <ul>
+                    <li><a href="index.html" class="nav-link">Home</a></li>
+                    <li><a href="expense.html" class="nav-link">Expenses</a></li>
+                    <li><a href="debt.html" class="nav-link active">Debt</a></li>
+                    <li><a href="goal-calculator.html" class="nav-link">Calculator</a></li>
+                    <li><a href="about.html" class="nav-link">About</a></li>
+                    <li><a href="feedback.html" class="nav-link">Feedback</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <main>
+            <div class="debt-container">
+                <div class="debt-header">
+                    <h2>Debt Tracker / Udhar</h2>
+                    <button id="add-debt-btn" class="add-btn">+ Add New Debt</button>
+                </div>
+                
+                <div class="debt-summary">
+                    <div class="summary-cards">
+                        <div class="summary-card">
+                            <h4>You Owe</h4>
+                            <p id="you-owe-total">₹0</p>
+                        </div>
+                        <div class="summary-card">
+                            <h4>They Owe You</h4>
+                            <p id="they-owe-total">₹0</p>
+                        </div>
+                        <div class="summary-card">
+                            <h4>Balance</h4>
+                            <p id="debt-balance">₹0</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="debt-tabs">
+                    <button class="tab-btn active" data-tab="all">All</button>
+                    <button class="tab-btn" data-tab="you-owe">You Owe</button>
+                    <button class="tab-btn" data-tab="they-owe">They Owe You</button>
+                    <button class="tab-btn" data-tab="settled">Settled</button>
+                </div>
+                
+                <div id="debt-list" class="debt-list">
+                    <!-- Debt items will be added here -->
+                </div>
+            </div>
+            
+            <!-- Debt Modal -->
+            <div id="debt-modal" class="modal">
+                <div class="modal-content">
+                    <span class="close">&times;</span>
+                    <h3>Add New Debt</h3>
+                    <form id="debt-form">
+                        <div class="form-group">
+                            <label for="debt-person">Person</label>
+                            <input type="text" id="debt-person" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="debt-amount">Amount (₹)</label>
+                            <input type="number" id="debt-amount" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Direction</label>
+                            <div class="radio-group">
+                                <label>
+                                    <input type="radio" name="debt-direction" value="you_owe" checked>
+                                    You owe them
+                                </label>
+                                <label>
+                                    <input type="radio" name="debt-direction" value="they_owe_you">
+                                    They owe you
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="debt-due-date">Due Date (Optional)</label>
+                            <input type="date" id="debt-due-date">
+                        </div>
+                        <div class="form-group">
+                            <label for="debt-note">Note (Optional)</label>
+                            <textarea id="debt-note"></textarea>
+                        </div>
+                        <button type="submit" class="submit-btn">Add</button>
+                    </form>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="js/common.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/debt.js"></script>
+    <script src="js/mobile-nav.js"></script>
+</body>
+</html>

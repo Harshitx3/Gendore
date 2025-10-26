@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Goal Planner Calculator - Gendore</title>
+    <link rel="stylesheet" href="css/common.css">
+    <link rel="stylesheet" href="css/goal-calculator.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="app-container">
+        <header>
+            <div class="header-container">
+                <h1>Gendore 💸</h1>
+                <button id="mobile-toggle" class="mobile-toggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+            <nav id="main-nav">
+                <ul>
+                    <li><a href="index.html" class="nav-link">Home</a></li>
+                    <li><a href="expense.html" class="nav-link">Expenses</a></li>
+                    <li><a href="debt.html" class="nav-link">Debt</a></li>
+                    <li><a href="goal-calculator.html" class="nav-link active">Calculator</a></li>
+                    <li><a href="about.html" class="nav-link">About</a></li>
+                    <li><a href="feedback.html" class="nav-link">Feedback</a></li>
+                </ul>
+            </nav>
+        </header>
+        
+        <main>
+            <div class="calculator-container">
+                <div class="calculator-header">
+                    <h2>✨ Goal Planner Calculator</h2>
+                    <p class="tagline">Plan your savings, crush your goals! ✨</p>
+                </div>
+
+        <div class="calculator-card">
+            <div class="input-section">
+                <div class="form-group">
+                    <label for="goal-name">What's your goal?</label>
+                    <input type="text" id="goal-name" placeholder="e.g., Goa Trip, New iPhone" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="goal-amount">How much do you need? (₹)</label>
+                    <input type="number" id="goal-amount" placeholder="e.g., 50000" min="1" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="savings-amount">How much can you save?</label>
+                    <div class="savings-input">
+                        <input type="number" id="savings-amount" placeholder="e.g., 2000" min="1" required>
+                        <select id="savings-frequency">
+                            <option value="weekly">per week</option>
+                            <option value="monthly" selected>per month</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <button id="calculate-btn" class="btn-calculate">
+                    <i class="fas fa-calculator"></i> Calculate
+                </button>
+            </div>
+            
+            <div class="result-section" id="result-section">
+                <div class="result-header">
+                    <h2 id="goal-name-display">Your Goal</h2>
+                    <div class="time-result">
+                        <span id="time-value">0</span>
+                        <span id="time-unit">months</span>
+                    </div>
+                </div>
+                
+
+                
+                <div class="motivation-box" id="motivation-box">
+                    <p id="motivation-text">💸 Ready to start your savings journey?</p>
+                </div>
+                
+                <div class="summary">
+                    <div class="summary-item">
+                        <span class="summary-label">Goal Amount:</span>
+                        <span class="summary-value" id="summary-amount">₹0</span>
+                    </div>
+                    <div class="summary-item">
+                        <span class="summary-label">Saving:</span>
+                        <span class="summary-value" id="summary-saving">₹0/month</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Spin Game Section -->
+        <div class="spin-game-container">
+            <h3>🎡 Spin & Win Motivation</h3>
+            <p>Feeling stuck? Spin the wheel for a motivational boost!</p>
+            <div class="wheel-container">
+                <div class="wheel" id="wheel"></div>
+                <button id="spin-btn" class="spin-btn">Spin the Wheel</button>
+            </div>
+            <div id="spin-result" class="spin-result"></div>
+        </div>
+        
+        <footer>
+            <p>Made with 💖 for Gen Z savers</p>
+        </footer>
+    </div>
+
+    <script src="js/goal-calculator.js"></script>
+    <script src="js/spin-game.js"></script>
+    <script src="js/mobile-nav.js"></script>
+</body>
+</html>
