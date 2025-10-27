@@ -63,7 +63,7 @@ mongoose
 // ✅ API Routes
 app.use('/api/auth', authRoutes);
 app.use('/api/expenses', expenseRoutes);
-app.use('/api/planned', auth, plannedItemRoutes);
+
 app.use('/api/debts', auth, debtRoutes);
 app.use('/api/parse', auth, parseRoutes);
 
