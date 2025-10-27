@@ -8,7 +8,7 @@ require('dotenv').config();
 
 // Import routes
 const expenseRoutes = require('./routes/expenses');
-const plannedItemRoutes = require('./routes/plannedItems');
+
 const debtRoutes = require('./routes/debts');
 const parseRoutes = require('./routes/parse');
 const authRoutes = require('./routes/auth');
