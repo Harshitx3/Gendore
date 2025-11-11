@@ -8,10 +8,11 @@ require('dotenv').config();
 
 // Import routes
 const expenseRoutes = require('./routes/expenses');
-const plannedItemRoutes = require('./routes/plannedItems');
+
 const debtRoutes = require('./routes/debts');
 const parseRoutes = require('./routes/parse');
 const authRoutes = require('./routes/auth');
+const billRoutes = require('./routes/bills');
 
 // Import auth middleware
 const { auth, requireAuth } = require('./middleware/auth');
@@ -63,9 +64,10 @@ mongoose
 // ✅ API Routes
 app.use('/api/auth', authRoutes);
 app.use('/api/expenses', expenseRoutes);
-app.use('/api/planned', auth, plannedItemRoutes);
+
 app.use('/api/debts', auth, debtRoutes);
 app.use('/api/parse', auth, parseRoutes);
+app.use('/api/bills', auth, billRoutes);
 
 // ✅ Serve frontend for non-API routes
 app.get('*', (req, res) => {

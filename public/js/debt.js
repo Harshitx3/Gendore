@@ -1,9 +1,16 @@
 // Store debts in memory after fetching from MongoDB
 let debts = [];
 
-// Function to get auth token
+// Function to get auth token and ensure it's valid
 function getAuthToken() {
-    return localStorage.getItem('token');
+    const token = localStorage.getItem('token');
+    if (!token) return null;
+    if (isTokenExpired(token)) {
+        alert('Session expired. Please log in again.');
+        logoutUser();
+        return null;
+    }
+    return token;
 }
 
 // Function to handle API errors
@@ -117,6 +124,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 body: JSON.stringify(debt)
             });
             
+            if (response.status === 401) {
+                alert('Session expired. Please log in again.');
+                logoutUser();
+                return;
+            }
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
@@ -156,6 +168,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             });
             
+            if (response.status === 401) {
+                alert('Session expired. Please log in again.');
+                logoutUser();
+                return;
+            }
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }

@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bill Splitter Pro - Gendore</title>
+    <link rel="stylesheet" href="css/common.css">
+    <link rel="stylesheet" href="css/bill-splitter.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="app-container">
+        <header>
+            <div class="header-container">
+                <h1>Gendore 💸</h1>
+                <button id="mobile-toggle" class="mobile-toggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+            <nav id="main-nav">
+                <ul>
+                    <li><a href="index.html" class="nav-link">Home</a></li>
+                    <li><a href="expense.html" class="nav-link">Expenses</a></li>
+                    <li><a href="debt.html" class="nav-link">Debt</a></li>
+                    <li><a href="bill-splitter.html" class="nav-link active">Bill Splitter</a></li>
+                    <li><a href="about.html" class="nav-link">About</a></li>
+                    <li><a href="feedback.html" class="nav-link">Feedback</a></li>
+                </ul>
+            </nav>
+        </header>
+        
+        <main>
+            <!-- Group Creation Section -->
+            <div id="group-creation" class="section active">
+                <div class="calculator-header">
+                    <h2>✨ Create Group</h2>
+                    <p class="tagline">Start your bill splitting journey! ✨</p>
+                </div>
+                
+                <div class="calculator-card">
+                    <div class="form-group">
+                        <label for="group-name">Group Name</label>
+                        <input type="text" id="group-name" placeholder="e.g., Trip to Goa 🏖️, Flatmates 🏠, Birthday Dinner 🎂">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="group-members">Add Friends (one per line)</label>
+                        <textarea id="group-members" placeholder="Ayush&#10;Harshit&#10;Riya&#10;Priya" rows="4"></textarea>
+                    </div>
+                    
+                    <button id="create-group-btn" class="btn-calculate">
+                        <i class="fas fa-users"></i> Create Group
+                    </button>
+                </div>
+            </div>
+
+            <!-- Group Dashboard -->
+            <div id="group-dashboard" class="section">
+                <div class="calculator-header">
+                    <h2 id="dashboard-title">Group Dashboard</h2>
+                    <button id="back-to-groups" class="btn-secondary">
+                        <i class="fas fa-arrow-left"></i> Back to Groups
+                    </button>
+                </div>
+
+                <div class="dashboard-stats">
+                    <div class="stat-card">
+                        <h3>Total Expenses</h3>
+                        <p id="total-expenses">₹0</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Members</h3>
+                        <p id="member-count">0</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Unsettled</h3>
+                        <p id="unsettled-count">0</p>
+                    </div>
+                </div>
+
+                <!-- Add Expense Section -->
+                <div class="calculator-card">
+                    <h3>Add Expense</h3>
+                    <div class="form-group">
+                        <label for="expense-description">What for?</label>
+                        <input type="text" id="expense-description" placeholder="e.g., Dinner, Movie tickets, Taxi">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="expense-amount">Amount (₹)</label>
+                        <input type="number" id="expense-amount" placeholder="e.g., 1200" min="0.01" step="0.01">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="who-paid">Who paid?</label>
+                        <select id="who-paid"></select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Split between:</label>
+                        <div id="split-between" class="checkbox-group"></div>
+                    </div>
+                    
+                    <button id="add-expense-btn" class="btn-calculate">
+                        <i class="fas fa-plus"></i> Add Expense
+                    </button>
+                </div>
+
+                <!-- Expenses List -->
+                <div class="calculator-card">
+                    <h3>Recent Expenses</h3>
+                    <div id="expenses-list"></div>
+                </div>
+
+                <!-- Settlement Summary -->
+                <div class="calculator-card">
+                    <h3>Who Owes Whom</h3>
+                    <div id="settlement-summary"></div>
+                    
+                    <div class="chart-container">
+                        <canvas id="balance-chart"></canvas>
+                    </div>
+                </div>
+
+                <!-- Settlement Modal -->
+                <div id="settlement-modal" class="modal">
+                    <div class="modal-content">
+                        <span class="close">&times;</span>
+                        <h3>Record Settlement</h3>
+                        <div class="form-group">
+                            <label id="settlement-text"></label>
+                            <input type="number" id="settlement-amount" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label for="settlement-note">Note (optional)</label>
+                            <input type="text" id="settlement-note" placeholder="Thanks bro 😎">
+                        </div>
+                        <button id="confirm-settlement" class="btn-calculate">Mark as Settled</button>
+                    </div>
+                </div>
+
+                <!-- Export Buttons -->
+                <div class="export-buttons">
+                    <button id="export-pdf" class="btn-export">
+                        <i class="fas fa-file-pdf"></i> Export as PDF
+                    </button>
+                    <button id="export-summary" class="btn-export">
+                        <i class="fas fa-download"></i> Download Summary
+                    </button>
+                </div>
+            </div>
+
+            <!-- Groups List -->
+            <div id="groups-list" class="section">
+                <div class="calculator-header">
+                    <h2>Your Groups</h2>
+                    <button id="create-new-group" class="btn-calculate">
+                        <i class="fas fa-plus"></i> Create New Group
+                    </button>
+                </div>
+                <div id="groups-container"></div>
+            </div>
+        </main>
+        
+        <footer>
+            <p>Made with 💖 for easy bill splitting</p>
+        </footer>
+    </div>
+
+    <script src="js/auth.js"></script>
+    <script src="js/bill-splitter-pro.js"></script>
+    <script src="js/mobile-nav.js"></script>
+</body>
+</html>

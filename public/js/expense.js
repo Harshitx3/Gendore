@@ -71,7 +71,7 @@ let totals = {
 
 // Get auth headers for API requests
 function getAuthHeaders() {
-    const token = localStorage.getItem('token');
+    const token = getTokenOrRedirect();
     console.log('Using token for request:', token);
     return {
         'Content-Type': 'application/json',
@@ -101,6 +101,11 @@ async function fetchExpenses() {
         
         clearTimeout(timeoutId);
         
+        if (response.status === 401) {
+            alert('Session expired. Please log in again.');
+            logoutUser();
+            return [];
+        }
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
         }
@@ -143,6 +148,11 @@ async function fetchExpenseSummary() {
         
         clearTimeout(timeoutId);
         
+        if (response.status === 401) {
+            alert('Session expired. Please log in again.');
+            logoutUser();
+            return { todayTotal: 0, weekTotal: 0, monthTotal: 0 };
+        }
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
         }
@@ -349,6 +359,11 @@ async function handleExpenseFormSubmit(event) {
             body: JSON.stringify(newExpense)
         });
         
+        if (response.status === 401) {
+            alert('Session expired. Please log in again.');
+            logoutUser();
+            return;
+        }
         const responseData = await response.json();
         
         if (!response.ok) {

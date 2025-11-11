@@ -501,6 +501,31 @@ footer {
     font-size: 0.9rem;
 }
 
+/* Bill Splitter Styles */
+.name-input {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.split-detail {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    border-bottom: 1px solid #eee;
+}
+
+.split-detail:last-child {
+    border-bottom: none;
+}
+
+.split-detail span {
+    font-weight: 500;
+}
+
 /* Animation for progress bar */
 @keyframes fillProgress {
     from { width: 0%; }

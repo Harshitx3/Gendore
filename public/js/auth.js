@@ -5,7 +5,53 @@
 
 // Check if user is logged in
 function isLoggedIn() {
-    return localStorage.getItem('token') !== null;
+    const token = localStorage.getItem('token');
+    if (!token) return false;
+    // If token is present but expired, treat as logged out
+    if (isTokenExpired(token)) {
+        return false;
+    }
+    return true;
+}
+
+// Decode JWT payload safely
+function parseJwt(token) {
+    try {
+        const base64Url = token.split('.')[1];
+        const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+        const jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) {
+            return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+        }).join(''));
+        return JSON.parse(jsonPayload);
+    } catch (e) {
+        return null;
+    }
+}
+
+// Determine if a token is expired based on `exp`
+function isTokenExpired(token) {
+    const payload = parseJwt(token);
+    if (!payload || !payload.exp) return false; // if no exp, assume not expired
+    const now = Math.floor(Date.now() / 1000);
+    return now >= payload.exp;
+}
+
+// Get a valid token or redirect if missing/expired
+function getTokenOrRedirect() {
+    const token = localStorage.getItem('token');
+    if (!token) {
+        const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+        localStorage.setItem('lastPage', currentPage);
+        window.location.href = 'login.html';
+        return null;
+    }
+    if (isTokenExpired(token)) {
+        // Clear and redirect to login
+        alert('Session expired. Please log in again.');
+        logoutUser();
+        return null;
+    }
+    return token;
 }
 
 // Get current user information
@@ -89,7 +135,13 @@ function logoutUser() {
 
 // Protect page - redirect to login if not authenticated
 function requireAuth() {
-    if (!isLoggedIn()) {
+    const token = localStorage.getItem('token');
+    if (!token || isTokenExpired(token)) {
+        // Clear token if expired
+        if (token && isTokenExpired(token)) {
+            localStorage.removeItem('user');
+            localStorage.removeItem('token');
+        }
         // Remember current page for redirect after login
         const currentPage = window.location.pathname.split('/').pop() || 'index.html';
         localStorage.setItem('lastPage', currentPage);
@@ -135,10 +187,10 @@ function updateUIForUser() {
 
 // Get auth headers for API requests
 function getAuthHeaders() {
-    const token = localStorage.getItem('token');
+    const token = getTokenOrRedirect();
     return {
         'Content-Type': 'application/json',
-        'x-auth-token': token
+        'x-auth-token': token || ''
     };
 }
 
