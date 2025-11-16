@@ -88,4 +88,18 @@ router.post('/:id/settlements', auth, async (req, res) => {
   }
 });
 
+// Delete a group
+router.delete('/:id', auth, async (req, res) => {
+  try {
+    if (!req.isAuthenticated) {
+      return res.status(401).json({ message: 'Authentication required' });
+    }
+    const deleted = await BillGroup.findOneAndDelete({ _id: req.params.id, user: req.user.id });
+    if (!deleted) return res.status(404).json({ message: 'Group not found' });
+    res.json({ message: 'Group deleted successfully' });
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+});
+
 module.exports = router;

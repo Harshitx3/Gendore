@@ -37,6 +37,15 @@ class BillSplitterPro {
         
         // Expense form updates
         document.getElementById('who-paid').addEventListener('change', () => this.updateSplitCheckboxes());
+
+        // Search groups
+        const searchInput = document.getElementById('group-search');
+        if (searchInput) {
+            searchInput.addEventListener('input', (e) => {
+                const q = e.target.value.trim().toLowerCase();
+                this.renderGroupsList(q);
+            });
+        }
     }
 
     async createGroup() {
@@ -83,20 +92,40 @@ class BillSplitterPro {
         this.showSection('groups-list');
     }
 
-    renderGroupsList() {
+    renderGroupsList(query = '') {
         const container = document.getElementById('groups-container');
         container.innerHTML = '';
-        
-        this.groups.forEach(group => {
+
+        const filtered = this.groups.filter(group => {
+            if (!query) return true;
+            const nameMatch = group.name.toLowerCase().includes(query);
+            const memberMatch = (group.members || []).some(m => (m || '').toLowerCase().includes(query));
+            return nameMatch || memberMatch;
+        });
+
+        if (filtered.length === 0) {
+            const empty = document.createElement('div');
+            empty.className = 'empty-state';
+            empty.textContent = 'No groups found.';
+            container.appendChild(empty);
+            return;
+        }
+
+        filtered.forEach(group => {
             const groupCard = document.createElement('div');
             groupCard.className = 'group-card';
             groupCard.innerHTML = `
                 <h3>${group.name}</h3>
                 <p>${group.members.length} members</p>
                 <p>Total: ₹${this.getGroupTotal(group).toFixed(2)}</p>
-                <button onclick="billSplitter.openGroup('${group.id}')" class="btn-calculate">
-                    Open Group
-                </button>
+                <div class="group-actions">
+                    <button onclick="billSplitter.openGroup('${group.id}')" class="btn-calculate">
+                        Open Group
+                    </button>
+                    <button onclick="billSplitter.deleteGroup('${group.id}')" class="btn-secondary" style="margin-left:8px;">
+                        <i class="fas fa-trash"></i> Delete
+                    </button>
+                </div>
             `;
             container.appendChild(groupCard);
         });
@@ -119,6 +148,30 @@ class BillSplitterPro {
         this.renderExpenses();
         this.calculateSettlements();
         this.showSection('group-dashboard');
+    }
+
+    async deleteGroup(groupId) {
+        const group = this.groups.find(g => g.id === groupId);
+        if (!group) return;
+        const confirmed = confirm(`Delete group "${group.name}"? This cannot be undone.`);
+        if (!confirmed) return;
+
+        try {
+            const resp = await fetch(`/api/bills/${groupId}`, {
+                method: 'DELETE',
+                headers: getAuthHeaders(),
+            });
+            if (!resp.ok && resp.status !== 404) {
+                throw new Error(`HTTP ${resp.status}`);
+            }
+            // Remove locally regardless (404 can happen if group already removed server-side)
+            this.groups = this.groups.filter(g => g.id !== groupId);
+            this.saveGroups();
+            this.renderGroupsList(document.getElementById('group-search')?.value?.trim().toLowerCase() || '');
+        } catch (err) {
+            console.error('Failed to delete group:', err);
+            alert('Could not delete group. Please try again.');
+        }
     }
 
     populateWhoPaidSelect() {
