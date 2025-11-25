@@ -10,7 +10,6 @@ require('dotenv').config();
 const expenseRoutes = require('./routes/expenses');
 
 const debtRoutes = require('./routes/debts');
-const parseRoutes = require('./routes/parse');
 const authRoutes = require('./routes/auth');
 const billRoutes = require('./routes/bills');
 
@@ -66,8 +65,8 @@ app.use('/api/auth', authRoutes);
 app.use('/api/expenses', expenseRoutes);
 
 app.use('/api/debts', auth, debtRoutes);
-app.use('/api/parse', auth, parseRoutes);
 app.use('/api/bills', auth, billRoutes);
+// Price compare feature removed
 
 // ✅ Serve frontend for non-API routes
 app.get('*', (req, res) => {
